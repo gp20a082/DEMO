@@ -148,6 +148,7 @@ void mode7( int x );
 
 void mouse_search( int goal_x, int goal_y, int speed, int mode );
 void com_go( int n );
+void com_back( int n);
 void com_stop( void );
 void com_turn( int t_mode );
 void countdown( void );
@@ -717,6 +718,7 @@ void mode7( int x )
   }
 
   // 実行モードの場合
+  com_back(1);
 }
 
 //-------------------------------------------------------------------------
@@ -818,6 +820,27 @@ void com_go( int n )
   control_mode = 1;                       // 直線走行用姿勢制御
   STEP = 0;                               // 距離カウンタクリア
   rdir = 0; ldir = 0;                     // 回転方向を直進
+
+  // 加速モード
+  speed = 200;        // 目標速度設定
+  while( speed > speed_now );                   // 目標速度になるまで加速
+  // 定速モード
+  speed = speed_now;  // 加速後の速度
+  while( STEP < GO_STEP * n - speed_now * 2 );  // 減速ステップ数を残して定速移動
+                                                // 全体ステップ数-減速用ステップ数
+  // 減速モード
+  speed = 1;          // 最低速度設定
+  while( STEP < GO_STEP * n );                  // 残りのステップ数で減速
+}
+
+//-------------------------------------------------------------------------
+//  後退モジュール (N区間後退)
+//-------------------------------------------------------------------------
+void com_go( int n )
+{
+  control_mode = 1;                       // 直線走行用姿勢制御
+  STEP = 0;                               // 距離カウンタクリア
+  rdir = 1; ldir = 1;                     // 回転方向を直進
 
   // 加速モード
   speed = 200;        // 目標速度設定
