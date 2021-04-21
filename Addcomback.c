@@ -148,7 +148,9 @@ void mode7( int x );
 
 void mouse_search( int goal_x, int goal_y, int speed, int mode );
 void com_go( int n );
+
 void com_back( int n);
+
 void com_stop( void );
 void com_turn( int t_mode );
 void countdown( void );
