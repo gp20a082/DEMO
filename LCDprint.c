@@ -717,6 +717,30 @@ void mode7( int x )
   }
 
   // é¿çsÉÇÅ[ÉhÇÃèÍçá
+  LCD_clear();
+  LCD_print( 0,"12345678");
+  LCD_print( 8,"89ABCDEF");
+  LCD_wait(1000);
+
+  LCD_clear();
+  char string1[] = "Micro";
+  char string2[] = "Mouse";
+  LCD_print( 0,string1);
+  LCD_print(11,string2);
+  LCD_wait(1000);
+
+  LCD_clear();
+  int number = 1111;
+  LCD_dec_out(0,number,4);
+  LCD_dec_out(8,number*9,4);
+  LCD_wait(500);
+
+  LCD_clear();
+  LCD_dec_out(0,number*10,5);
+  LCD_dec_out(8,number*99,6);  
+  LCD_wait(1000);
+
+  LCD_clear();
 }
 
 //-------------------------------------------------------------------------
